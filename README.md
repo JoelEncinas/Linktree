@@ -1,5 +1,5 @@
 # Linktree
-Linktree like app in mern stack
+Linktree like app in mern stack [WIP]
 
 # Functionality
   - auth
