@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import ReactAudioPlayer from "react-audio-player";
 
 const API_BASE = "http://localhost:5000";
 
@@ -8,9 +9,7 @@ function App() {
   const [songs, setSongs] = useState([]);
 
   // currentSong
-  const [audio] = useState(new Audio("/songs/Requiem.mp3"));
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [audio] = useState("/songs/Requiem.mp3");
 
   useEffect(() => {
     getSongs();
@@ -27,52 +26,19 @@ function App() {
       .catch((err) => console.error("Error: ", err));
   };
 
-  useEffect(() => {
-    isPlaying ? audio.play() : audio.pause();
-  }, [isPlaying, audio]);
-
-  useEffect(() => {
-    const updateProgress = () => {
-      const duration = audio.duration || 0;
-      const currentTime = audio.currentTime || 0;
-      setProgress((currentTime / duration) * 100);
-    };
-
-    audio.addEventListener("timeupdate", updateProgress);
-
-    return () => {
-      audio.removeEventListener("timeupdate", updateProgress);
-    };
-  }, [audio]);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleProgressClick = (e) => {
-    const { duration } = audio;
-    const clickPosition = e.nativeEvent.offsetX;
-    const barWidth = e.target.offsetWidth;
-    const newTime = (clickPosition / barWidth) * duration;
-    audio.currentTime = newTime;
-  };
-
   return (
     <div className="App">
       <h1>Drill beatz</h1>
-      
-      <div>
-        <h1>My Audio Player</h1>
-        <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
-        <div
-          style={{ background: "gray", height: "5px" }}
-          onClick={handleProgressClick}
-        >
-          <div
-            style={{ background: "red", height: "5px", width: `${progress}%` }}
-          />
-        </div>
+      <h2>Songs</h2>
+      <div className="songs" key="song-list">
+        {songs.length > 0 ? (
+          songs.map((song) => <p key={song.id}>{song.title}</p>)
+        ) : (
+          <p key="no-songs-message">No songs available</p>
+        )}
       </div>
+
+      <ReactAudioPlayer src={audio} autoPlay controls />
     </div>
   );
 }
