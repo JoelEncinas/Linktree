@@ -18,4 +18,12 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
+const Todo = require("./models/Todo");
+
+app.get("/todos", async (req, res) => {
+  const todos = await Todo.find();
+
+  res.json(todos);
+});
+
 app.listen(port, () => console.log(`Server started on port ${port}`));
