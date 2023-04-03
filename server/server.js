@@ -18,22 +18,23 @@ mongoose
   .then(() => console.log("Connected to DB"))
   .catch(console.error);
 
-const Todo = require("./models/Todo");
+const Song = require("./models/Song");
 
-app.get("/todos", async (req, res) => {
-  const todos = await Todo.find();
+app.get("/songs", async (req, res) => {
+  const songs = await Song.find();
 
-  res.json(todos);
+  res.json(songs);
 });
 
-app.post("/todo/new", (req, res) => {
-  const todo = new Todo({
-    text: req.body.text,
+app.post("/song/new", (req, res) => {
+  const song = new Song({
+    title: req.body.title,
+    url: req.body.url,
   });
 
-  todo.save();
+  song.save();
 
-  res.json(todo);
+  res.json(song);
 });
 
 app.delete("/todo/delete/:id", async (req, res) => {
