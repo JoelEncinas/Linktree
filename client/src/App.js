@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       <h1>Drill beatz</h1>
       <h2>Songs</h2>
-      <div className="songs" key="song-list">
+      <div className="songs">
         {songs.length > 0 ? (
           songs.map((song) => <p key={song.id}>{song.title}</p>)
         ) : (
