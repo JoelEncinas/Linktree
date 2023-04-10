@@ -3,6 +3,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
+const SECRET_KEY = process.env.SECRET_KEY;
 
 // Protected route
 router.get("/", (req, res) => {
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  jwt.verify(token, "secretKey", (err, decoded) => {
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
     if (err) {
       return res.status(401).json({ error: "Invalid token" });
     }
