@@ -5,6 +5,11 @@ const User = require("../models/User");
 
 const router = express.Router();
 
+// Register route
+router.get("/register", (req, res) => {
+  res.render("register");
+});
+
 // Register a new user
 router.post("/register", async (req, res) => {
   try {
@@ -14,12 +19,24 @@ router.post("/register", async (req, res) => {
       return res.status(400).json({ error: "Username already exists" });
     }
 
-    const user = new User({ username, password });
-    await user.save();
-    res.json({ message: "User registered successfully" });
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const newUser = new User({ username, password: hashedPassword });
+    await newUser.save();
+
+    // Return success message
+    res.json({ message: "Registration successful" });
   } catch (err) {
-    res.status(500).json({ error: "Failed to register user" });
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+// Login route
+router.get("/login", (req, res) => {
+  res.render("login");
 });
 
 // Log in an existing user
@@ -33,16 +50,25 @@ router.post("/login", async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
+      const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+        expiresIn: "1h",
+      });
+      res.cookie("token", token);
+      return res.json({ message: "Login successful", token });
+    } else {
       return res.status(401).json({ error: "Invalid username or password" });
     }
-
-    const token = jwt.sign({ userId: user._id }, "secretKey", {
-      expiresIn: "1h",
-    });
-    res.json({ token });
   } catch (err) {
-    res.status(500).json({ error: "Failed to log in" });
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+// Logout route
+router.post("/logout", (req, res) => {
+  // Clear JWT token cookie
+  res.clearCookie("token");
+  res.redirect("/auth/login");
 });
 
 module.exports = router;

@@ -3,25 +3,21 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
-const SECRET_KEY = process.env.SECRET_KEY;
 
 // Protected route
 router.get("/", (req, res) => {
-  // Verify JWT token
-  const token = req.headers.authorization;
+  // Verify JWT token from cookie
+  const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.redirect('/auth/login');
   }
 
-  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+  jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ error: "Invalid token" });
+        return res.redirect('/auth/login');
     }
 
-    res.json({
-      message: "Access granted to protected route",
-      userId: decoded.userId,
-    });
+    res.render('protected', { username: decoded.userId });
   });
 });
 
