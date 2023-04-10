@@ -21,7 +21,6 @@ app.use(express.static("public"));
 // handlebars
 app.set("view engine", "hbs");
 app.set("views", __dirname + "/views");
-hbs.registerPartials(__dirname + "/partials");
 
 // routes
 const authRoutes = require("./routes/auth");
@@ -29,6 +28,10 @@ const protectedRoutes = require("./routes/protected");
 
 app.use('/auth', authRoutes);
 app.use('/protected', protectedRoutes);
+
+app.get("*", (req, res) => {
+  res.json({message: "404"})
+});
 
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.pug2uxj.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
