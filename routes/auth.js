@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
         expiresIn: "1h",
       });
       res.cookie("token", token);
-      return res.json({ message: "Login successful", token });
+      res.render("protected", { username: user.username });
     } else {
       return res.status(401).json({ error: "Invalid username or password" });
     }
