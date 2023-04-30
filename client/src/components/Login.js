@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Form, FormGroup, Input, Label } from "reactstrap";
 
 function Login() {
   const navigate = useNavigate();
@@ -67,15 +68,18 @@ function Login() {
     <div>
       <Navbar />
       <h1>Login</h1>
-      <form onSubmit={(event) => handleLogin(event)}>
-        <label htmlFor="username">Username:</label>
-        <input
-          required
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          id="username"
-        ></input>
+      <Form onSubmit={(event) => handleLogin(event)}>
+        <FormGroup floating>
+          <Input
+            required
+            type="text"
+            value={username}
+            placeholder="Username"
+            onChange={(e) => setUsername(e.target.value)}
+            id="username"
+          />
+          <Label for="username">Username</Label>
+        </FormGroup>
         <label htmlFor="password">Password:</label>
         <input
           required
@@ -85,7 +89,7 @@ function Login() {
           id="password"
         ></input>
         <input type="submit" value="Login"></input>
-      </form>
+      </Form>
     </div>
   );
 }
