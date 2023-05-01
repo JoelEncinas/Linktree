@@ -30,13 +30,13 @@ function NotLoggedNavbar() {
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar className="justify-content-end">
         <Nav navbar>
-          <NavItem>
-            <NavLink tag={Link} to="/login">
+          <NavItem className="mx-1 my-1" style={{width: 100}}>
+            <NavLink tag={Link} to="/login" className="btn btn-secondary">
               Login
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink tag={Link} to="/register">
+          <NavItem className="mx-1 my-1" style={{width: 100}}>
+            <NavLink tag={Link} to="/register" className="btn btn-secondary">
               Register
             </NavLink>
           </NavItem>
