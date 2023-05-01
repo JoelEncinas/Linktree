@@ -1,13 +1,16 @@
 import React from "react";
-import Navbar from "./Navbar";
+import NotLoggedNavbar from "./NotLoggedNavbar";
+import { Container } from "reactstrap";
 
 function Home() {
   return (
-    <div>
-      <Navbar />
-      <h1>Home</h1>
-      <p>Welcome to home page.</p>
-    </div>
+    <>
+      <NotLoggedNavbar />
+      <Container className="mx-auto text-center" style={{ maxWidth: 992 }}>
+        <h1>Home</h1>
+        <p>Welcome to home page.</p>
+      </Container>
+    </>
   );
 }
 

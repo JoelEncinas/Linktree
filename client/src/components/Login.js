@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 
 function Login() {
@@ -77,10 +77,10 @@ function Login() {
   }, [navigate]);
 
   return (
-    <Container>
-      <Navbar />
-      <h1 className="text-center">Login</h1>
+    <>
+      <NotLoggedNavbar />
       <Container className="mx-auto" style={{ maxWidth: 400 }}>
+        <h1 className="text-center">Login</h1>
         <Form className="d-flex flex-column" onSubmit={handleLogin}>
           <FormGroup
             className={submitted && userNotFound ? "has-danger" : ""}
@@ -131,7 +131,7 @@ function Login() {
           </Button>
         </Form>
       </Container>
-    </Container>
+    </>
   );
 }
 

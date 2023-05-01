@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "./Navbar";
+import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 
 function Register() {
@@ -68,10 +68,10 @@ function Register() {
   }, [navigate]);
 
   return (
-    <Container>
-      <Navbar />
-      <h1 className="text-center">Register</h1>
+    <>
+      <NotLoggedNavbar />
       <Container className="mx-auto" style={{ maxWidth: 400 }}>
+        <h1 className="text-center">Register</h1>
         <Form className="d-flex flex-column" onSubmit={handleSubmit}>
           <FormGroup
             className={submitted && userTaken ? "has-danger" : ""}
@@ -117,7 +117,7 @@ function Register() {
           </Button>
         </Form>
       </Container>
-    </Container>
+    </>
   );
 }
 
