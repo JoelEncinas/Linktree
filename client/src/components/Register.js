@@ -2,22 +2,33 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [values, setValues] = useState({ username: "", password: "" });
+
+  const [submitted, setSubmitted] = useState(false);
+  const [userTaken, setUserTaken] = useState(false);
+
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+    setSubmitted(false);
+    setUserTaken(false);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
+    setSubmitted(true);
 
     const user = {
-      username: username,
-      password: password,
+      username: values.username,
+      password: values.password,
     };
 
-    fetch("http://127.0.0.1:4997/auth/register", {
+    fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -29,7 +40,7 @@ function Register() {
           console.log("register OK");
           navigate("/login");
         } else if (res.status === 409) {
-          console.log("username taken");
+          setUserTaken(true);
         } else if (res.status === 500) {
           console.log("server err");
         }
@@ -44,7 +55,7 @@ function Register() {
     for (const cookie of cookies) {
       const [name, value] = cookie.split("=");
       if (name === "token") {
-        fetch("http://127.0.0.1:4997/protected", {
+        fetch(`${process.env.REACT_APP_API_URL}/protected`, {
           headers: {
             "x-access-token": value,
           },
@@ -54,32 +65,59 @@ function Register() {
         break;
       }
     }
-  }, []);
+  }, [navigate]);
 
   return (
-    <div>
+    <Container>
       <Navbar />
-      <h1>Register</h1>
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <label htmlFor="username">Username:</label>
-        <input
-          required
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          id="username"
-        ></input>
-        <label htmlFor="password">Password:</label>
-        <input
-          required
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          id="password"
-        ></input>
-        <input type="submit" value="Register"></input>
-      </form>
-    </div>
+      <h1 className="text-center">Register</h1>
+      <Container className="mx-auto" style={{ maxWidth: 400 }}>
+        <Form className="d-flex flex-column" onSubmit={handleSubmit}>
+          <FormGroup
+            className={submitted && userTaken ? "has-danger" : ""}
+            floating
+          >
+            <Input
+              className={submitted && userTaken ? "is-invalid" : ""}
+              required
+              type="text"
+              value={values.username}
+              placeholder="Username"
+              onChange={handleInputChange}
+              id="username"
+              name="username"
+            ></Input>
+            <Label for="username">Username</Label>
+            {submitted && userTaken && (
+              <div className="invalid-feedback">
+                Username taken, please enter a new one.
+              </div>
+            )}
+          </FormGroup>
+          <FormGroup floating>
+            <Input
+              required
+              type="password"
+              value={values.password}
+              placeholder="Password"
+              onChange={handleInputChange}
+              id="password"
+              name="password"
+              minLength={4}
+            ></Input>
+            <Label for="password">Password</Label>
+          </FormGroup>
+          <Button
+            type="submit"
+            color="primary"
+            className="mx-auto"
+            style={{ width: 100 }}
+          >
+            Register
+          </Button>
+        </Form>
+      </Container>
+    </Container>
   );
 }
 
