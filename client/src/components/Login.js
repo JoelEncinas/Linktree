@@ -30,7 +30,7 @@ function Login() {
       password: values.password,
     };
 
-    fetch("http://127.0.0.1:4997/auth/login", {
+    fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -64,7 +64,7 @@ function Login() {
     for (const cookie of cookies) {
       const [name, value] = cookie.split("=");
       if (name === "token") {
-        fetch("http://127.0.0.1:4997/protected", {
+        fetch(`${process.env.REACT_APP_API_URL}/protected`, {
           headers: {
             "x-access-token": value,
           },
@@ -81,7 +81,7 @@ function Login() {
       <Navbar />
       <h1 className="text-center">Login</h1>
       <Container className="mx-auto" style={{ maxWidth: 400 }}>
-        <Form className="d-flex flex-column">
+        <Form className="d-flex flex-column" onSubmit={handleLogin}>
           <FormGroup
             className={submitted && userNotFound ? "has-danger" : ""}
             floating
@@ -122,10 +122,10 @@ function Login() {
           </FormGroup>
 
           <Button
+            type="submit"
             color="primary"
             className="mx-auto"
             style={{ width: 100 }}
-            onClick={(event) => handleLogin(event)}
           >
             Login
           </Button>
