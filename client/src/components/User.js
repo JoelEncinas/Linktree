@@ -50,13 +50,25 @@ function User() {
       {userFound === false ? (
         <UserNotFound />
       ) : (
-        <Container
-          className="mx-auto mt-4 text-center"
-          style={{ maxWidth: 992 }}
-        >
-          <h1 className="display-1">{userData.username}</h1>
-          {userData.links ? <p>Links</p> : <p>No links created yet</p>}
-        </Container>
+        <div id="user-content">
+          <Container
+            id="user-content-main"
+            className="mx-auto pt-4 text-center"
+            style={{ maxWidth: 992 }}
+          >
+            <h1 className="h1 pb-2">{userData.username}</h1>
+            {userData.links ? (
+              <p>Links</p>
+            ) : (
+              <p className="fst-italic mb-5">No links created yet</p>
+            )}
+          </Container>
+          <footer className="text-center py-2">
+            <Link className="h3" style={{ textDecoration: "none" }} to="/">
+              DevTree
+            </Link>
+          </footer>
+        </div>
       )}
     </>
   );

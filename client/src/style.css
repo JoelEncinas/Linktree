@@ -2,7 +2,16 @@ html,
 body {
     height: 100%;
     margin: 0;
-    padding: 0;
+}
+
+#user-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#user-content-main {
+    min-height: 80vh;
 }
 
 /* SPINNER */
