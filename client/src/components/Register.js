@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
-import useRedirectToProtectedRoute from "../hooks/useRedirectToProtectedRoute";
+import useRedirectToAdminRoute from "../hooks/useRedirectToAdminRoute";
 
 function Register() {
-  useRedirectToProtectedRoute();
+  useRedirectToAdminRoute();
 
   const navigate = useNavigate();
 

@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
-import useRedirectToProtectedRoute from "../hooks/useRedirectToProtectedRoute";
+import useRedirectToAdminRoute from "../hooks/useRedirectToAdminRoute";
 
 function Login() {
-  useRedirectToProtectedRoute();
+  useRedirectToAdminRoute();
 
   const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function Login() {
             document.cookie = `token=${data.token}; expires=${new Date(
               Date.now() + 86400000
             )}; path=/`;
-            navigate("/protected");
+            navigate("/admin");
           });
         } else if (res.status === 401) {
           setInvalidCredentials(true);

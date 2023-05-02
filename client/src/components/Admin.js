@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Protected() {
+function Admin() {
   const navigate = useNavigate();
 
   const [username, setUserName] = useState(null);
@@ -18,7 +18,7 @@ function Protected() {
       const [name, value] = cookie.split("=");
       if (name === "token") {
         hasCookie = true;
-        fetch(`${process.env.REACT_APP_API_URL}/protected`, {
+        fetch(`${process.env.REACT_APP_API_URL}/admin`, {
           headers: {
             "x-access-token": value,
           },
@@ -46,10 +46,10 @@ function Protected() {
   return (
     <div>
       <button onClick={logout}>Logout</button>
-      <h1>Protected route</h1>
+      <h1>Admin</h1>
       {username && <p>Hello {username}</p>}
     </div>
   );
 }
 
-export default Protected;
+export default Admin;

@@ -18,11 +18,11 @@ app.use(express.static("public"));
 
 // routes
 const authRoutes = require("./routes/auth");
-const protectedRoutes = require("./routes/protected");
+const adminRoutes = require("./routes/admin");
 const apiRoutes = require("./routes/api");
 
 app.use("/auth", authRoutes);
-app.use("/protected", protectedRoutes);
+app.use("/admin", adminRoutes);
 app.use("/api", apiRoutes);
 
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.pug2uxj.mongodb.net/?retryWrites=true&w=majority`;

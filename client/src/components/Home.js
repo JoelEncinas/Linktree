@@ -1,10 +1,10 @@
 import React from "react";
 import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Container } from "reactstrap";
-import useRedirectToProtectedRoute from "../hooks/useRedirectToProtectedRoute";
+import useRedirectToAdminRoute from "../hooks/useRedirectToAdminRoute";
 
 function Home() {
-  useRedirectToProtectedRoute();
+  useRedirectToAdminRoute();
 
   return (
     <>

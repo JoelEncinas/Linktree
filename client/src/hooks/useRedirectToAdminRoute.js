@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function useRedirectToProtectedRoute() {
+function useRedirectToAdminRoute() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -10,13 +10,13 @@ function useRedirectToProtectedRoute() {
       for (const cookie of cookies) {
         const [name, value] = cookie.split("=");
         if (name === "token") {
-          fetch(`${process.env.REACT_APP_API_URL}/protected`, {
+          fetch(`${process.env.REACT_APP_API_URL}/admin`, {
             headers: {
               "x-access-token": value,
             },
           })
             .then((res) => res.json())
-            .then((data) => (data.isLoggedIn ? navigate("/protected") : null));
+            .then((data) => (data.isLoggedIn ? navigate("/admin") : null));
           break;
         }
       }
@@ -26,4 +26,4 @@ function useRedirectToProtectedRoute() {
   }, [navigate]);
 }
 
-export default useRedirectToProtectedRoute;
+export default useRedirectToAdminRoute;
