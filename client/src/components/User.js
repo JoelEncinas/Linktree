@@ -1,9 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { Container } from "reactstrap";
 
 function User() {
+  const navigate = useNavigate();
+
   const { user } = useParams();
 
   // todo call server
@@ -11,16 +13,29 @@ function User() {
   // else display user data
   const [userData, setUserData] = useState(null);
 
+  useEffect(() => {
+    async function fetchUserData() {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/${user}`
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setUserData(data);
+      } else if (response.status === 404) {
+        navigate("/404");
+      }
+    }
+    fetchUserData();
+  }, [user, navigate]);
 
-
-  if (!user) {
+  if (!userData) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
       <Container className="mx-auto text-center" style={{ maxWidth: 992 }}>
-        <h1 className="display-1">{user}</h1>
+        <h1 className="display-1">{userData}</h1>
       </Container>
     </>
   );

@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  links: {
+    type: mongoose.Schema.Types.Mixed,
+  },
 });
 
 // change to user on project finish
