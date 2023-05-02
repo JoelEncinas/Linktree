@@ -1,8 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { Container } from "reactstrap";
+import { Container, Nav, NavItem, NavLink } from "reactstrap";
 import UserNotFound from "./UserNotFound";
+import CopyButton from "./CopyButton";
 
 function User() {
   const navigate = useNavigate();
@@ -53,6 +54,17 @@ function User() {
         <UserNotFound />
       ) : (
         <div id="user-content">
+          <Nav
+            className="mx-auto w-100 py-2 justify-content-end fixed-top"
+            style={{ maxWidth: 772 }}
+          >
+            <NavItem>
+              <NavLink>
+                <CopyButton url={window.location.href} />
+              </NavLink>
+            </NavItem>
+          </Nav>
+
           <Container
             id="user-content-main"
             className="mx-auto pt-4 text-center"
