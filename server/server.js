@@ -23,15 +23,6 @@ const protectedRoutes = require("./routes/protected");
 app.use("/auth", authRoutes);
 app.use("/protected", protectedRoutes);
 
-app.get("/", (req, res) => {
-  res.status(404).json({ message: "hello world" });
-});
-
-// 404
-app.get("*", (req, res) => {
-  res.status(404).json({ message: "404" });
-});
-
 const uri = `mongodb+srv://${process.env.USER}:${process.env.PASSWORD}@cluster0.pug2uxj.mongodb.net/?retryWrites=true&w=majority`;
 mongoose
   .connect(uri, {

@@ -18,7 +18,7 @@ function Protected() {
       const [name, value] = cookie.split("=");
       if (name === "token") {
         hasCookie = true;
-        fetch("http://127.0.0.1:4997/protected", {
+        fetch(`${process.env.REACT_APP_API_URL}/protected`, {
           headers: {
             "x-access-token": value,
           },
