@@ -15,7 +15,7 @@ function App() {
         <Route element={<Login />} exact path="/auth/login" />
         <Route element={<Protected />} exact path="/protected" />
         <Route element={<User />} exact path="/:user" />
-        <Route element={<NotFound />} exact path="*" />
+        <Route element={<NotFound />} path="*" />
       </Routes>
     </BrowserRouter>
   );

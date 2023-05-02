@@ -13,6 +13,10 @@ function User() {
   // else display user data
   const [userData, setUserData] = useState(null);
 
+  function notFound() {
+    navigate("/a");
+  }
+
   useEffect(() => {
     async function fetchUserData() {
       const response = await fetch(
@@ -20,22 +24,36 @@ function User() {
       );
       if (response.status === 200) {
         const data = await response.json();
-        setUserData(data);
+        console.log(data);
+        setUserData(data.user);
       } else if (response.status === 404) {
-        navigate("/404");
+        notFound();
       }
     }
     fetchUserData();
   }, [user, navigate]);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{ height: "100vh" }}
+        className="d-flex align-items-center justify-content-center"
+      >
+        <div className="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <>
-      <Container className="mx-auto text-center" style={{ maxWidth: 992 }}>
-        <h1 className="display-1">{userData}</h1>
+      <Container className="mx-auto mt-4 text-center" style={{ maxWidth: 992 }}>
+        <h1 className="display-1">{userData.username}</h1>
+        {userData.links ? <p>Links</p> : <p>No links created yet</p>}
       </Container>
     </>
   );
