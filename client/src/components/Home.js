@@ -1,8 +1,11 @@
 import React from "react";
 import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Container } from "reactstrap";
+import useProtectedRoute from "../hooks/useProtectedRoute";
 
 function Home() {
+  useProtectedRoute();
+
   return (
     <>
       <NotLoggedNavbar />
