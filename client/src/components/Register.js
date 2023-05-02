@@ -66,6 +66,7 @@ function Register() {
             <Input
               className={submitted && userTaken ? "is-invalid" : ""}
               required
+              maxLength={12}
               type="text"
               value={values.username}
               placeholder="Username"
@@ -104,8 +105,7 @@ function Register() {
         </Form>
 
         <p className="mt-3 text-center">
-          Already have an account?{" "}
-          <Link to="/auth/login">Login</Link>
+          Already have an account? <Link to="/auth/login">Login</Link>
         </p>
       </Container>
     </>
