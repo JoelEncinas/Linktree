@@ -11,7 +11,7 @@ function Home() {
       <NotLoggedNavbar />
       <Container className="mx-auto text-center" style={{ maxWidth: 992 }}>
         <h1>Home</h1>
-        <p>Welcome to home page.</p>
+        <p>TODO</p>
       </Container>
     </>
   );

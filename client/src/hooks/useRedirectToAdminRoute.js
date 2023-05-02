@@ -10,13 +10,18 @@ function useRedirectToAdminRoute() {
       for (const cookie of cookies) {
         const [name, value] = cookie.split("=");
         if (name === "token") {
-          fetch(`${process.env.REACT_APP_API_URL}/admin`, {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/admin`, {
             headers: {
               "x-access-token": value,
             },
-          })
-            .then((res) => res.json())
-            .then((data) => (data.isLoggedIn ? navigate("/admin") : null));
+          });
+          if (res.status === 200) {
+            const data = await res.json();
+            navigate("/admin", { state: { data } });
+          } else {
+            navigate("/auth/login");
+          }
+
           break;
         }
       }
