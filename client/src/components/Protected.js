@@ -7,8 +7,8 @@ function Protected() {
   const [username, setUserName] = useState(null);
 
   function logout() {
-    document.cookie = "token" + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    navigate("/login");
+    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    navigate("/auth/login");
   }
 
   useEffect(() => {
@@ -27,21 +27,21 @@ function Protected() {
             if (res.status === 200) {
               res.json().then((data) => setUserName(data.username));
             } else if (res.status === 401) {
-              navigate("/login");
+              navigate("/auth/login");
             }
           })
           .catch((error) => {
             console.log(error);
-            navigate("/login");
+            navigate("/auth/login");
           });
         break;
       }
     }
 
     if (hasCookie === false) {
-      navigate("/login");
+      navigate("/auth/login");
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <div>

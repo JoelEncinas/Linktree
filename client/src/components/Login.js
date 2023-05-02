@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import useProtectedRoute from "../hooks/useProtectedRoute";
@@ -116,6 +116,10 @@ function Login() {
             Login
           </Button>
         </Form>
+
+        <p className="mt-3 text-center">
+          Don't have an account yet? <Link to="/auth/register">Register</Link>
+        </p>
       </Container>
     </>
   );

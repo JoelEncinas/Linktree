@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import NotLoggedNavbar from "./NotLoggedNavbar";
 import { Button, Container, Form, FormGroup, Input, Label } from "reactstrap";
 import useProtectedRoute from "../hooks/useProtectedRoute";
@@ -41,7 +41,7 @@ function Register() {
       .then((res) => {
         if (res.status === 201) {
           console.log("register OK");
-          navigate("/login");
+          navigate("/auth/login");
         } else if (res.status === 409) {
           setUserTaken(true);
         } else if (res.status === 500) {
@@ -102,6 +102,11 @@ function Register() {
             Register
           </Button>
         </Form>
+
+        <p className="mt-3 text-center">
+          Already have an account?{" "}
+          <Link to="/auth/login">Login</Link>
+        </p>
       </Container>
     </>
   );
