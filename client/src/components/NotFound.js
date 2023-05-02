@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container } from "reactstrap";
-import useProtectedRoute from "../hooks/useProtectedRoute";
+import useRedirectToProtectedRoute from "../hooks/useRedirectToProtectedRoute";
 
 function NotFound() {
-  useProtectedRoute();
+    useRedirectToProtectedRoute();
 
   return (
     <div style={{ height: "100vh"}} className="d-flex align-items-center justify-content-center mx-4">
