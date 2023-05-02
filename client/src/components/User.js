@@ -21,6 +21,8 @@ function User() {
         const data = await response.json();
         setUserFound(true);
         setUserData(data.user);
+      } else if (response.status === 400) {
+        navigate("/admin");
       } else if (response.status === 404) {
         setUserFound(false);
         setUserData("");
@@ -60,7 +62,7 @@ function User() {
             {userData.links ? (
               <p>Links</p>
             ) : (
-              <p className="fst-italic mb-5">No links created yet</p>
+              <p className="fst-italic mb-5">No links created yet...</p>
             )}
           </Container>
           <footer className="text-center py-2">

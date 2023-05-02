@@ -7,6 +7,10 @@ router.get("/:user", async (req, res) => {
   try {
     const username = req.params.user;
 
+    if (req.params.user.toLowerCase() === "admin") {
+      res.status(400).json({ message: "Admin redirect" });
+    }
+
     const user = await User.findOne({ username });
     if (!user) {
       res.status(404).json({ message: "User not found" });

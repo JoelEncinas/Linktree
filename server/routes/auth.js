@@ -11,7 +11,7 @@ router.post("/register", async (req, res) => {
     let link = username.toLowerCase();
 
     const existingUser = await User.findOne({ link });
-    if (existingUser) {
+    if (existingUser || link === "admin") {
       res.status(409).json({ message: "Username taken" });
     }
 
