@@ -2,20 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { Container } from "reactstrap";
+import UserNotFound from "./UserNotFound";
 
 function User() {
   const navigate = useNavigate();
 
   const { user } = useParams();
 
-  // todo call server
-  // if user not found redirect to 400
-  // else display user data
   const [userData, setUserData] = useState(null);
-
-  function notFound() {
-    navigate("/a");
-  }
+  const [userFound, setUserFound] = useState(null);
 
   useEffect(() => {
     async function fetchUserData() {
@@ -24,16 +19,17 @@ function User() {
       );
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
+        setUserFound(true);
         setUserData(data.user);
       } else if (response.status === 404) {
-        notFound();
+        setUserFound(false);
+        setUserData("");
       }
     }
     fetchUserData();
   }, [user, navigate]);
 
-  if (!userData) {
+  if (userData === null) {
     return (
       <div
         style={{ height: "100vh" }}
@@ -51,10 +47,17 @@ function User() {
 
   return (
     <>
-      <Container className="mx-auto mt-4 text-center" style={{ maxWidth: 992 }}>
-        <h1 className="display-1">{userData.username}</h1>
-        {userData.links ? <p>Links</p> : <p>No links created yet</p>}
-      </Container>
+      {userFound === false ? (
+        <UserNotFound />
+      ) : (
+        <Container
+          className="mx-auto mt-4 text-center"
+          style={{ maxWidth: 992 }}
+        >
+          <h1 className="display-1">{userData.username}</h1>
+          {userData.links ? <p>Links</p> : <p>No links created yet</p>}
+        </Container>
+      )}
     </>
   );
 }

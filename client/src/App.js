@@ -3,7 +3,6 @@ import Home from "./components/Home";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Protected from "./components/Protected";
-import NotFound from "./components/NotFound";
 import User from "./components/User";
 
 function App() {
@@ -15,7 +14,6 @@ function App() {
         <Route element={<Login />} exact path="/auth/login" />
         <Route element={<Protected />} exact path="/protected" />
         <Route element={<User />} exact path="/:user" />
-        <Route element={<NotFound />} path="*" />
       </Routes>
     </BrowserRouter>
   );
