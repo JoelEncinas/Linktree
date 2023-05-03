@@ -23,7 +23,7 @@ function User() {
         const data = await response.json();
         setUserFound(true);
         setUserData(data.user);
-        console.log(data.user)
+        console.log(data.user);
       } else if (response.status === 400) {
         navigate("/admin");
       } else if (response.status === 404) {
@@ -55,11 +55,21 @@ function User() {
       {userFound === false ? (
         <UserNotFound />
       ) : (
-        <div id="user-content">
+        <div
+          id="user-content"
+          style={{
+            backgroundImage: colors[userData.background],
+          }}
+        >
           <Nav
-            className="mx-auto w-100 py-2 justify-content-end fixed-top"
+            className="mx-auto w-100 py-2 justify-content-between fixed-top"
             style={{ maxWidth: 772 }}
           >
+            <NavItem>
+              <NavLink tag={Link} to="/">
+                DevTree
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink>
                 <CopyButton url={window.location.href} />
@@ -70,20 +80,18 @@ function User() {
           <Container
             id="user-content-main"
             className="mx-auto pt-4 text-center"
-            style={{ maxWidth: 992, backgroundImage: colors[userData.background] }}
+            style={{
+              maxWidth: 992,
+            }}
           >
             <h1 className="h1 pb-2">{userData.username}</h1>
-            {userData.links ? (
+            {userData.bio && <p>userData.bio</p>}
+            {userData.links.length !== 0 ? (
               <p>Links</p>
             ) : (
               <p className="fst-italic mb-5">No links created yet...</p>
             )}
           </Container>
-          <footer className="text-center py-2">
-            <Link className="h3" style={{ textDecoration: "none" }} to="/">
-              DevTree
-            </Link>
-          </footer>
         </div>
       )}
     </>

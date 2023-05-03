@@ -19,7 +19,7 @@ function CopyButton({ url }) {
       onClick={handleCopyClick}
     >
       {showTick ? (
-        <i className="bi bi-clipboard-check"></i>
+        <i className="bi bi-check-circle"></i>
       ) : (
         <i className="bi bi-clipboard"></i>
       )}
