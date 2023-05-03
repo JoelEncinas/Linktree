@@ -42,16 +42,20 @@ function Admin() {
   }
 
   function updateBio() {
-    fetch(`${process.env.REACT_APP_API_URL}/api/users/${username}`, {
+    fetch(`${process.env.REACT_APP_API_URL}/api/${username}/bio`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
       },
-      body: { bio: bioValue },
+      body: JSON.stringify({ bio: bioValue }),
     })
       .then((res) => {
         if (res.status === 200) {
           console.log("OK");
+        } else if (res.status === 404) {
+          console.log("Not found");
+        } else if (res.status === 500) {
+          console.log("server err");
         }
       })
       .catch((error) => {

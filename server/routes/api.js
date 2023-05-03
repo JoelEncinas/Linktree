@@ -25,4 +25,29 @@ router.get("/:user", async (req, res) => {
   }
 });
 
+router.put("/:user/bio", async (req, res) => {
+  try {
+    console.log("a");
+    const username = req.params.user;
+    const bio = req.body.bio;
+
+    const user = await User.findOneAndUpdate(
+      { username },
+      { bio },
+      { new: true }
+    );
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({
+      message: "User updated",
+      user: { username: user.username, bio: user.bio },
+    });
+  } catch (err) {
+    res.status(500);
+  }
+});
+
 module.exports = router;
