@@ -7,7 +7,7 @@ router.get("/:user", async (req, res) => {
   try {
     const username = req.params.user;
 
-    if (req.params.user.toLowerCase() === "admin") {
+    if (username.toLowerCase() === "admin") {
       res.status(400).json({ message: "Admin redirect" });
     }
 

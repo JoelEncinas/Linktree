@@ -36,8 +36,27 @@ function Admin() {
     setBioValue(value);
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    updateBio();
+  }
+
   function updateBio() {
-    // TODO
+    fetch(`${process.env.REACT_APP_API_URL}/api/users/${username}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: { bio: bioValue },
+    })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log("OK");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -45,7 +64,7 @@ function Admin() {
       <button onClick={logout}>Logout</button>
       <Container className="mx-auto" style={{ maxWidth: 400 }}>
         <h1 className="text-center">Profile</h1>
-        <Form className="d-flex flex-column" onSubmit={updateBio}>
+        <Form className="d-flex flex-column" onSubmit={handleSubmit}>
           <FormGroup row floating>
             <Input
               required
