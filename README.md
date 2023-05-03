@@ -1,4 +1,4 @@
-# Linktree
+# Devtree
 Linktree like app in mern stack [WIP]
 
 # Functionality
@@ -9,4 +9,6 @@ Linktree like app in mern stack [WIP]
   - login, register, crud routes
 
 # TODO
-  - implement passport.js auth
+  - change background and bio in settings
+  - add, edit and remove links
+
