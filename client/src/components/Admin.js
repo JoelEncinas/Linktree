@@ -19,7 +19,9 @@ function Admin() {
     if (location.state && location.state.data) {
       const data = location.state.data;
       setUserName(data.username);
-      console.log(data);
+      if (data.bio) {
+        setBioValue(data.bio);
+      }
     } else {
       navigate("/auth/login");
     }
@@ -30,12 +32,11 @@ function Admin() {
   }, [bioValue]);
 
   function handleInputChange(e) {
-    console.log(e)
     const value = e.target.value;
     setBioValue(value);
   }
 
-  function handleProfile() {
+  function updateBio() {
     // TODO
   }
 
@@ -44,7 +45,7 @@ function Admin() {
       <button onClick={logout}>Logout</button>
       <Container className="mx-auto" style={{ maxWidth: 400 }}>
         <h1 className="text-center">Profile</h1>
-        <Form className="d-flex flex-column" onSubmit={handleProfile}>
+        <Form className="d-flex flex-column" onSubmit={updateBio}>
           <FormGroup row floating>
             <Input
               required
@@ -55,7 +56,7 @@ function Admin() {
               id="bio"
               name="bio"
               maxLength={90}
-              style={{height: 105}}
+              style={{ height: 105 }}
             />
             <Label for="bio">Bio</Label>
             <span>{counter}/90</span>
