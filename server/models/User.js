@@ -15,8 +15,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  bio: {
+    type: String,
+  },
   links: {
     type: mongoose.Schema.Types.Mixed,
+  },
+  background: {
+    type: Number,
+    required: true,
   },
 });
 

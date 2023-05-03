@@ -16,6 +16,7 @@ function Admin() {
     if (location.state && location.state.data) {
       const data = location.state.data;
       setUserName(data.username);
+      console.log(data);
     } else {
       navigate("/auth/login");
     }

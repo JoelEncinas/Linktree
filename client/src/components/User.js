@@ -4,6 +4,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { Container, Nav, NavItem, NavLink } from "reactstrap";
 import UserNotFound from "./UserNotFound";
 import CopyButton from "./CopyButton";
+import colors from "../utils/colors";
 
 function User() {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function User() {
         const data = await response.json();
         setUserFound(true);
         setUserData(data.user);
+        console.log(data.user)
       } else if (response.status === 400) {
         navigate("/admin");
       } else if (response.status === 404) {
@@ -68,7 +70,7 @@ function User() {
           <Container
             id="user-content-main"
             className="mx-auto pt-4 text-center"
-            style={{ maxWidth: 992 }}
+            style={{ maxWidth: 992, backgroundImage: colors[userData.background] }}
           >
             <h1 className="h1 pb-2">{userData.username}</h1>
             {userData.links ? (
